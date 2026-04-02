@@ -1,0 +1,19 @@
+[project]
+name = "opencode-openbe-benchmark"
+version = "0.1.0"
+description = "Benchmark suite: OpenCode + AutoBE plugin — tool-calling accuracy with and without plugin"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32",
+    "pytest>=8.0",
+    "pytest-asyncio>=1.0",
+    "pytest-json-report>=1.5",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["./.opencode/plugins/autobe/index.ts"],
+  "provider": {
+    "openrouter": {
+      "options": {
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      }
+    }
+  },
+  "mode": {
+    "build": {
+      "model": "openrouter/openai/gpt-oss-120b:free"
+    }
+  }
+}

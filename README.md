@@ -60,7 +60,7 @@ SVG charts are written to `test_results/opencode_plugin/charts/` after every run
 
 ## Results
 
-See the [Wiki](../../wiki) for benchmark results across models.
+See [RESULTS.md](RESULTS.md) for benchmark results across models.
 
 ## Project structure
 

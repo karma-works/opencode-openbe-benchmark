@@ -16,9 +16,15 @@ BENCHMARKS_DIR = Path(__file__).resolve().parent.parent.parent
 OPENCODE_BIN = os.environ.get("OPENCODE_BIN", "opencode")
 PLUGIN_PACKAGE = os.environ.get("PLUGIN_PACKAGE", "@hacr/opencode-autobe")
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
-TEST_MODEL = os.environ.get("TEST_MODEL", "openrouter/openai/gpt-oss-120b:free")
+TEST_MODEL = os.environ.get("TEST_MODEL", "openrouter/openai/gpt-4.1-mini")
 SERVER_HOST = "127.0.0.1"
 BASE_PORT = 18932
+
+# AutoBE plugin API key — defaults to OpenRouter so one key covers both OpenCode and AutoBE.
+# The plugin also accepts ANTHROPIC_API_KEY or OPENAI_API_KEY directly.
+AUTOBE_API_KEY = os.environ.get("AUTOBE_API_KEY") or OPENROUTER_API_KEY
+AUTOBE_BASE_URL = os.environ.get("AUTOBE_BASE_URL", "https://openrouter.ai/api/v1")
+AUTOBE_MODEL = os.environ.get("AUTOBE_MODEL", "openai/gpt-4.1-mini")
 
 
 @pytest.hookimpl(trylast=True)
@@ -85,6 +91,13 @@ def start_opencode_server(
     env = os.environ.copy()
     if OPENROUTER_API_KEY:
         env["OPENROUTER_API_KEY"] = OPENROUTER_API_KEY
+    # Pass autobe plugin credentials so the tool can call the AI vendor.
+    if AUTOBE_API_KEY:
+        env["AUTOBE_API_KEY"] = AUTOBE_API_KEY
+    if AUTOBE_BASE_URL:
+        env["AUTOBE_BASE_URL"] = AUTOBE_BASE_URL
+    if AUTOBE_MODEL:
+        env["AUTOBE_MODEL"] = AUTOBE_MODEL
     if env_overrides:
         env.update(env_overrides)
 
